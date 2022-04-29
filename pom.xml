@@ -15,6 +15,7 @@
 	<description>HabbitRabbit</description>
 	<properties>
 		<java.version>11</java.version>
+		<sonar.organization>habbitrabbit1</sonar.organization>
 	</properties>
 	<dependencies>
 		<dependency>
