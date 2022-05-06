@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] AUTH_WHITELIST = {
-            "/v2/api-docs", "/swagger-resources", "/swagger-resources/**",
+            "/**"
     };
 
     @Override
