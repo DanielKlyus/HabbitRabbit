@@ -2,7 +2,6 @@ CREATE TABLE users
 (
 	"id"        serial PRIMARY KEY NOT NULL,
 	"name"      TEXT               NOT NULL,
-	"login"     TEXT               NOT NULL,
 	"password"  TEXT               NOT NULL,
 	"email"     TEXT               NOT NULL,
 	"isActive"  boolean            NOT NULL,

@@ -1,7 +1,9 @@
-package com.nsu.habbitrabbit.domain;
+package com.nsu.habbitrabbit.controller.dto;
 
-public class Player {
-    private int id; //TODO get set
+
+public class CreatePlayerOutput {
+
+    private int id;
     private String name;
     private String email;
     private String password;
@@ -65,7 +67,7 @@ public class Player {
         this.createdAt = createdAt;
     }
 
-    public Player(final int id, final String name, final String email, final String password, final boolean isActive, final long updatedAt, final long createdAt) {
+    public CreatePlayerOutput(final int id, final String name, final String email, final String password, final boolean isActive, final long updatedAt, final long createdAt) {
         this.id = id;
         this.name = name;
         this.email = email;
