@@ -1,5 +1,6 @@
 package com.nsu.habbitrabbit.controller;
 
+
 import com.nsu.habbitrabbit.controller.dto.CreatePlayerInput;
 import com.nsu.habbitrabbit.controller.dto.CreatePlayerOutput;
 import com.nsu.habbitrabbit.controller.dto.UserAuthOutput;
