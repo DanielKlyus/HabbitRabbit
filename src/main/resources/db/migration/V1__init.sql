@@ -1,35 +1,34 @@
-CREATE TABLE users
+CREATE TABLE players
 (
-	"id"        serial PRIMARY KEY NOT NULL,
-	"name"      TEXT               NOT NULL,
-	"login"     TEXT               NOT NULL,
-	"password"  TEXT               NOT NULL,
-	"email"     TEXT               NOT NULL,
-	"isActive"  boolean            NOT NULL,
-	"createdAt" TIMESTAMP          NOT NULL DEFAULT NOW(),
-	"updatedAt" TIMESTAMP          NOT NULL DEFAULT NOW()
+    "id"         serial PRIMARY KEY NOT NULL,
+    "name"       TEXT               NOT NULL,
+    "password"   TEXT               NOT NULL,
+    "email"      TEXT               NOT NULL,
+    "is_active"   boolean            NOT NULL,
+    "created_at" TIMESTAMP          NOT NULL DEFAULT NOW(),
+    "updated_at" TIMESTAMP          NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE rooms
 (
-	"id"                serial PRIMARY KEY NOT NULL,
-	"name"              TEXT               NOT NULL,
-	"creatorId"         INTEGER            NOT NULL,
-	"createdAt"         TIMESTAMP          NOT NULL DEFAULT NOW(),
-	"updatedAt"         TIMESTAMP          NOT NULL DEFAULT NOW(),
-	"finishedAt"        TIMESTAMP          NOT NULL,
-	"rabbitsForFailure" INTEGER            NOT NULL,
-	"rabbitsForSuccess" INTEGER            NOT NULL,
-	
-	CONSTRAINT fk_rooms_creators FOREIGN KEY ("creatorId") REFERENCES users (id)
+    "id"                  serial PRIMARY KEY NOT NULL,
+    "name"                TEXT               NOT NULL,
+    "creator_id"          INTEGER            NOT NULL,
+    "created_at"          TIMESTAMP          NOT NULL DEFAULT NOW(),
+    "updated_at"          TIMESTAMP          NOT NULL DEFAULT NOW(),
+    "finished_at"         TIMESTAMP          NOT NULL,
+    "rabbits_for_failure" INTEGER            NOT NULL,
+    "rabbits_for_success" INTEGER            NOT NULL,
+
+    CONSTRAINT fk_rooms_creators FOREIGN KEY ("creator_id") REFERENCES players ("id")
 );
 
 CREATE TABLE members
 (
-	"roomId" INTEGER NOT NULL,
-	"userId" INTEGER NOT NULL,
-	PRIMARY KEY(roomId, userId),
-	
-	CONSTRAINT fk_members_rooms FOREIGN KEY ("roomId") REFERENCES rooms (id),
-	CONSTRAINT fk_members_users FOREIGN KEY ("userId") REFERENCES users (id)
+    "room_id"   INTEGER NOT NULL,
+    "player_id" INTEGER NOT NULL,
+    PRIMARY KEY ("room_id", "player_id"),
+
+    CONSTRAINT fk_members_rooms FOREIGN KEY ("room_id") REFERENCES rooms ("id"),
+    CONSTRAINT fk_members_player FOREIGN KEY ("player_id") REFERENCES players ("id")
 );

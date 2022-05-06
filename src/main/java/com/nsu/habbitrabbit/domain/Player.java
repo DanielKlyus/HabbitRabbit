@@ -1,9 +1,18 @@
 package com.nsu.habbitrabbit.domain;
 
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
+@Entity
+@Table(name = "players")
 public class Player {
-    private String login;
+    @Id
+    @GeneratedValue
+    private Long id;
     private String name;
     private String email;
     private String password;
@@ -11,8 +20,17 @@ public class Player {
     private Date updatedAt;
     private Date createdAt;
 
-    public String getLogin() {
-        return this.login;
+    public Player() {
+    }
+
+    public Player(final Long id, final String name, final String email, final String password, final boolean isActive, final Date updatedAt, final Date createdAt) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.isActive = isActive;
+        this.updatedAt = updatedAt;
+        this.createdAt = createdAt;
     }
 
     public String getName() {
@@ -31,18 +49,6 @@ public class Player {
         return this.isActive;
     }
 
-    public Date getUpdatedAt() {
-        return this.updatedAt;
-    }
-
-    public Date getCreatedAt() {
-        return this.createdAt;
-    }
-
-    public void setLogin(final String login) {
-        this.login = login;
-    }
-
     public void setName(final String name) {
         this.name = name;
     }
@@ -59,21 +65,27 @@ public class Player {
         this.isActive = isActive;
     }
 
-    public void setUpdatedAt(final Date updatedAt) {
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 
-    public void setCreatedAt(final Date createdAt) {
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Player(final String login, final String name, final String email, final String password, final boolean isActive, final Date updatedAt, final Date createdAt) {
-        this.login = login;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.isActive = isActive;
-        this.updatedAt = updatedAt;
-        this.createdAt = createdAt;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
