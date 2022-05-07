@@ -6,6 +6,7 @@ import com.nsu.habbitrabbit.domain.Player;
 import com.nsu.habbitrabbit.repo.PlayerRepository;
 import com.nsu.habbitrabbit.service.mapper.player.CreatePlayerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -13,10 +14,12 @@ import java.util.Date;
 @Service
 public class PlayerService {
     PlayerRepository playerRepository;
+    PasswordEncoder passwordEncoder;
 
     @Autowired
-    public PlayerService(PlayerRepository playerRepository) {
+    public PlayerService(PlayerRepository playerRepository, PasswordEncoder passwordEncoder) {
         this.playerRepository = playerRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public CreatePlayerOutput createPlayer(CreatePlayerInput input) {
@@ -29,7 +32,7 @@ public class PlayerService {
         current = new Player();
         current.setEmail(input.getEmail());
         current.setName(input.getName());
-        current.setPassword(input.getPassword()); /// засунуть инкодер
+        current.setPassword(passwordEncoder.encode(input.getPassword()));
         current.setActive(true);
         current.setCreatedAt(new Date());
         current.setUpdatedAt(new Date());
