@@ -1,17 +1,66 @@
 package com.nsu.habbitrabbit.controller.dto;
 
 
+import java.util.Date;
+
 public class CreatePlayerOutput {
 
-    private int id;
+    private Long id;
     private String name;
     private String email;
-    private String password;
     private boolean isActive;
-    private long updatedAt;
-    private long createdAt;
+    private Date updatedAt;
+    private Date createdAt;
+    private String error;
 
-    public int getId() {
+
+    public CreatePlayerOutput(
+            final Long id,
+            final String name,
+            final String email,
+            final boolean isActive,
+            final Date updatedAt,
+            final Date createdAt,
+            final String error
+    ) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.isActive = isActive;
+        this.updatedAt = updatedAt;
+        this.createdAt = createdAt;
+        this.error = error;
+    }
+
+    public CreatePlayerOutput(
+            final Long id,
+            final String name,
+            final String email,
+            final boolean isActive,
+            final Date updatedAt,
+            final Date createdAt
+    ) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.isActive = isActive;
+        this.updatedAt = updatedAt;
+        this.createdAt = createdAt;
+    }
+
+    public CreatePlayerOutput(String error) {
+        this.error = error;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public Long getId() {
         return this.id;
     }
 
@@ -23,23 +72,19 @@ public class CreatePlayerOutput {
         return this.email;
     }
 
-    public String getPassword() {
-        return this.password;
-    }
-
     public boolean isActive() {
         return this.isActive;
     }
 
-    public long getUpdatedAt() {
+    public Date getUpdatedAt() {
         return this.updatedAt;
     }
 
-    public long getCreatedAt() {
+    public Date getCreatedAt() {
         return this.createdAt;
     }
 
-    public void setId(final int id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -51,29 +96,15 @@ public class CreatePlayerOutput {
         this.email = email;
     }
 
-    public void setPassword(final String password) {
-        this.password = password;
-    }
-
     public void setActive(final boolean isActive) {
         this.isActive = isActive;
     }
 
-    public void setUpdatedAt(final long updatedAt) {
+    public void setUpdatedAt(final Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 
-    public void setCreatedAt(final long createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public CreatePlayerOutput(final int id, final String name, final String email, final String password, final boolean isActive, final long updatedAt, final long createdAt) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.isActive = isActive;
-        this.updatedAt = updatedAt;
+    public void setCreatedAt(final Date createdAt) {
         this.createdAt = createdAt;
     }
 }

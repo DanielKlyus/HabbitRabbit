@@ -12,11 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class PlayerController {
+    private PlayerService playerService;
+
     @Autowired
-    PlayerService playerService;
+    public PlayerController(PlayerService playerService) {
+        this.playerService = playerService;
+    }
 
     @PostMapping("players/register")
-    public CreatePlayerOutput createPlayer (@RequestBody CreatePlayerInput input){
+    public CreatePlayerOutput createPlayer(@RequestBody CreatePlayerInput input) {
         return playerService.createPlayer(input);
     }
 }
