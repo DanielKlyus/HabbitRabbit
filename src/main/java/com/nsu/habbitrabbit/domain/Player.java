@@ -17,8 +17,8 @@ public class Player {
     private String email;
     private String password;
     private boolean isActive;
-    private Date updatedAt;
-    private Date createdAt;
+    private long updatedAt;
+    private long createdAt;
 
     public Player() {
     }
