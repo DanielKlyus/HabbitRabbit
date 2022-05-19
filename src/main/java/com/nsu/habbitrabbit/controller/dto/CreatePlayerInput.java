@@ -36,4 +36,7 @@ public class CreatePlayerInput {
         this.email = email;
         this.password = password;
     }
+
+    public CreatePlayerInput() {
+    }
 }

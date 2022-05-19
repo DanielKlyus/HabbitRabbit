@@ -1,11 +1,8 @@
 package com.nsu.habbitrabbit.controller;
 
-import com.nsu.habbitrabbit.controller.dto.CreatePlayerInput;
-import com.nsu.habbitrabbit.controller.dto.CreatePlayerOutput;
-import com.nsu.habbitrabbit.controller.dto.UserAuthOutput;
+import com.nsu.habbitrabbit.controller.dto.*;
 import com.nsu.habbitrabbit.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.nsu.habbitrabbit.controller.dto.UserAuthInput;
 import com.nsu.habbitrabbit.domain.Player;
 import com.nsu.habbitrabbit.provider.JwtProvider;
 import com.nsu.habbitrabbit.service.AuthService;
@@ -26,7 +23,7 @@ public class PlayerController {
         this.jwtProvider = jwtProvider;
     }
 
-    @PostMapping("players/register")
+    @PostMapping(   "players/register")
     public CreatePlayerOutput createPlayer(@RequestBody CreatePlayerInput input) {
         return playerService.createPlayer(input);
     }
@@ -38,6 +35,11 @@ public class PlayerController {
             return new UserAuthOutput(null, "Неверные данные пользователя");
         }
         return new UserAuthOutput(jwtProvider.generateToken(player.getEmail(), 15, "SERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDOR"));
+    }
+
+    @PostMapping("/players/change")
+    public ChangePlayerOutput changePlayer(@RequestBody ChangePlayerInput input) {
+      return playerService.changePlayer(input);
     }
 
 }
