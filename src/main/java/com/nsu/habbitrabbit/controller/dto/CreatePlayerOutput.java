@@ -11,6 +11,7 @@ public class CreatePlayerOutput {
     private boolean isActive;
     private Date updatedAt;
     private Date createdAt;
+    private String jwt;
     private String error;
 
 
@@ -21,6 +22,7 @@ public class CreatePlayerOutput {
             final boolean isActive,
             final Date updatedAt,
             final Date createdAt,
+            final String jwt,
             final String error
     ) {
         this.id = id;
@@ -29,6 +31,7 @@ public class CreatePlayerOutput {
         this.isActive = isActive;
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
+        this.jwt = jwt;
         this.error = error;
     }
 
@@ -38,7 +41,8 @@ public class CreatePlayerOutput {
             final String email,
             final boolean isActive,
             final Date updatedAt,
-            final Date createdAt
+            final Date createdAt,
+            final String jwt
     ) {
         this.id = id;
         this.name = name;
@@ -46,10 +50,19 @@ public class CreatePlayerOutput {
         this.isActive = isActive;
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
+        this.jwt = jwt;
     }
 
     public CreatePlayerOutput(String error) {
         this.error = error;
+    }
+
+    public String getJwt() {
+        return jwt;
+    }
+
+    public void setJwt(String jwt) {
+        this.jwt = jwt;
     }
 
     public String getError() {

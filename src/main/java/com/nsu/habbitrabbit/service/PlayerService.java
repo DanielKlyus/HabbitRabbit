@@ -1,10 +1,8 @@
 package com.nsu.habbitrabbit.service;
 
-import com.nsu.habbitrabbit.controller.dto.ChangePlayerInput;
-import com.nsu.habbitrabbit.controller.dto.ChangePlayerOutput;
-import com.nsu.habbitrabbit.controller.dto.CreatePlayerInput;
-import com.nsu.habbitrabbit.controller.dto.CreatePlayerOutput;
+import com.nsu.habbitrabbit.controller.dto.*;
 import com.nsu.habbitrabbit.domain.Player;
+import com.nsu.habbitrabbit.provider.JwtProvider;
 import com.nsu.habbitrabbit.repo.PlayerRepository;
 import com.nsu.habbitrabbit.service.mapper.player.ChangePlayerMapper;
 import com.nsu.habbitrabbit.service.mapper.player.CreatePlayerMapper;
@@ -18,11 +16,30 @@ import java.util.Date;
 public class PlayerService {
     PlayerRepository playerRepository;
     PasswordEncoder passwordEncoder;
+    JwtProvider jwtProvider;
 
     @Autowired
-    public PlayerService(PlayerRepository playerRepository, PasswordEncoder passwordEncoder) {
+    public PlayerService(PlayerRepository playerRepository, PasswordEncoder passwordEncoder, JwtProvider jwtProvider) {
         this.playerRepository = playerRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtProvider = jwtProvider;
+    }
+
+    public UserAuthOutput authPlayer(UserAuthInput input) {
+        Player player = playerRepository.findPlayerByEmail(input.getEmail());
+
+        if (player != null) {
+            if (passwordEncoder.matches(input.getPassword(), player.getPassword())) {
+                return new UserAuthOutput(
+                        player.getName(),
+                        player.getEmail(),
+                        jwtProvider.generateToken(player.getEmail(),
+                                15,
+                                "SERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDOR")
+                );
+            }
+        }
+        return null;
     }
 
     public CreatePlayerOutput createPlayer(CreatePlayerInput input) {
@@ -42,7 +59,10 @@ public class PlayerService {
 
         current = playerRepository.save(current);
 
-        return CreatePlayerMapper.mapPlayerToDTO(current);
+        return CreatePlayerMapper.mapPlayerToDTO(current, jwtProvider.generateToken(
+                current.getEmail(),
+                15,
+                "SERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDORSERGEYPIDOR"));
     }
 
     public ChangePlayerOutput changePlayer(ChangePlayerInput input) {
@@ -56,9 +76,9 @@ public class PlayerService {
             return new ChangePlayerOutput("Текущий пароль введён неверно!");
         }
 
-        if (!(input.getOldEmail().equals(input.getNewEmail()))){
+        if (!(input.getOldEmail().equals(input.getNewEmail()))) {
             Player playerWithNewEmail = playerRepository.findPlayerByEmail(input.getNewEmail());
-            if (playerWithNewEmail != null){
+            if (playerWithNewEmail != null) {
                 return new ChangePlayerOutput("Этот email уже зарегистрирован");
             }
         }
