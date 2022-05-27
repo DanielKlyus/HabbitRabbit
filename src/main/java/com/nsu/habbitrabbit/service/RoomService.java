@@ -22,6 +22,7 @@ public class RoomService {
     public CreateRoomOutput createRoom(CreateRoomInput input){
         Room current = new Room();
         current.setName(input.getName());
+        current.setDescription(input.getDescription());
         current.setCreatorId(input.getCreatorId());
         current.setCreatedAt(new Date());
         current.setUpdatedAt(new Date());

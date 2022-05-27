@@ -14,6 +14,7 @@ public class Room {
     @GeneratedValue
     private Long id;
     private String name;
+    private String description;
     private Long creatorId;
     private Date createdAt;
     private Date updatedAt;
@@ -21,21 +22,23 @@ public class Room {
     private Integer rabbitsForFailure;
     private Integer rabbitsForSuccess;
 
-    public Room(){
+    public Room() {
     }
 
     public Room(
             final Long id,
             final String name,
+            final String description,
             final Long creatorId,
             final Date createdAt,
             final Date updatedAt,
             final Date finishedAt,
             final Integer rabbitsForFailure,
             final Integer rabbitsForSuccess
-    ){
+    ) {
         this.id = id;
         this.name = name;
+        this.description = description;
         this.creatorId = creatorId;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -44,35 +47,75 @@ public class Room {
         this.rabbitsForSuccess = rabbitsForSuccess;
     }
 
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public void setId(Long id) { this.id = id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
-    public void setName(String name) { this.name = name; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public Long getCreatorId() { return creatorId; }
+    public String getDescription() {
+        return description;
+    }
 
-    public void setCreatorId(Long creatorId) { this.creatorId = creatorId; }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-    public Date getCreatedAt() { return createdAt; }
+    public Long getCreatorId() {
+        return creatorId;
+    }
 
-    public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }
+    public void setCreatorId(Long creatorId) {
+        this.creatorId = creatorId;
+    }
 
-    public Date getUpdatedAt() { return updatedAt; }
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
-    public void setUpdatedAt(Date updatedAt) { this.updatedAt = updatedAt; }
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
-    public Date getFinishedAt() { return finishedAt; }
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
 
-    public void setFinishedAt(Date finishedAt) { this.finishedAt = finishedAt; }
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
-    public Integer getRabbitsForFailure() { return rabbitsForFailure; }
+    public Date getFinishedAt() {
+        return finishedAt;
+    }
 
-    public void setRabbitsForFailure(Integer rabbitsForFailure) { this.rabbitsForFailure = rabbitsForFailure; }
+    public void setFinishedAt(Date finishedAt) {
+        this.finishedAt = finishedAt;
+    }
 
-    public Integer getRabbitsForSuccess() { return rabbitsForSuccess; }
+    public Integer getRabbitsForFailure() {
+        return rabbitsForFailure;
+    }
 
-    public void setRabbitsForSuccess(Integer rabbitsForSuccess) { this.rabbitsForSuccess = rabbitsForSuccess; }
+    public void setRabbitsForFailure(Integer rabbitsForFailure) {
+        this.rabbitsForFailure = rabbitsForFailure;
+    }
+
+    public Integer getRabbitsForSuccess() {
+        return rabbitsForSuccess;
+    }
+
+    public void setRabbitsForSuccess(Integer rabbitsForSuccess) {
+        this.rabbitsForSuccess = rabbitsForSuccess;
+    }
 }

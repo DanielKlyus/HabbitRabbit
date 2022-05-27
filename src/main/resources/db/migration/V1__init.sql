@@ -13,6 +13,7 @@ CREATE TABLE rooms
 (
     "id"                  serial PRIMARY KEY NOT NULL,
     "name"                TEXT               NOT NULL,
+    "description"         TEXT               NOT NULL,
     "creator_id"          INTEGER            NOT NULL,
     "created_at"          TIMESTAMP          NOT NULL DEFAULT NOW(),
     "updated_at"          TIMESTAMP          NOT NULL DEFAULT NOW(),
@@ -31,4 +32,12 @@ CREATE TABLE members
 
     CONSTRAINT fk_members_rooms FOREIGN KEY ("room_id") REFERENCES rooms ("id"),
     CONSTRAINT fk_members_player FOREIGN KEY ("player_id") REFERENCES players ("id")
+);
+
+CREATE TABLE visits
+(
+    "player_id" INTEGER PRIMARY KEY NOT NULL,
+    "room_activity" json,
+
+    CONSTRAINT fk_visits_player FOREIGN KEY ("player_id") REFERENCES players ("id")
 );
