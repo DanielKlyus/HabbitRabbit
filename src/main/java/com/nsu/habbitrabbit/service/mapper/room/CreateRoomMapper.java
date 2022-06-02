@@ -8,6 +8,7 @@ public class CreateRoomMapper {
         return new CreateRoomOutput(
                 room.getId(),
                 room.getName(),
+                room.getDescription(),
                 room.getCreatorId(),
                 room.getCreatedAt(),
                 room.getUpdatedAt(),
