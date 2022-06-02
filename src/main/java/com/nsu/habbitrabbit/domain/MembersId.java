@@ -1,25 +1,19 @@
 package com.nsu.habbitrabbit.domain;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
 import java.io.Serializable;
 
-@Entity
-@IdClass(MembersId.class)
-@Table(name="members")
-public class Members implements Serializable {
-    @Id
-    @Column(name = "room_id")
+public class MembersId implements Serializable {
     private Long roomId;
-    @Id
-    @Column(name = "player_id")
     private Long playerId;
 
-    public Members() {}
-
-    public Members(Long roomId, Long playerId) {
+    public MembersId(Long roomId, Long playerId) {
         this.roomId = roomId;
         this.playerId = playerId;
     }
+
+    MembersId() {}
 
     public Long getRoomId() {
         return roomId;

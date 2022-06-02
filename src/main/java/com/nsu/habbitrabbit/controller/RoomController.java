@@ -2,6 +2,8 @@ package com.nsu.habbitrabbit.controller;
 
 import com.nsu.habbitrabbit.controller.dto.CreateRoomInput;
 import com.nsu.habbitrabbit.controller.dto.CreateRoomOutput;
+import com.nsu.habbitrabbit.controller.dto.GetRoomInput;
+import com.nsu.habbitrabbit.controller.dto.GetRoomOutput;
 import com.nsu.habbitrabbit.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,5 +20,10 @@ public class RoomController {
     @PostMapping("rooms/create")
     public CreateRoomOutput createRoom(@RequestBody CreateRoomInput input){
         return roomService.createRoom(input);
+    }
+
+    @PostMapping("rooms/get_room")
+    public GetRoomOutput getRoom(@RequestBody GetRoomInput input) {
+        return roomService.getRoom(input);
     }
 }
