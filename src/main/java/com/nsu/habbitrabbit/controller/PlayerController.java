@@ -1,6 +1,8 @@
 package com.nsu.habbitrabbit.controller;
 
 import com.nsu.habbitrabbit.controller.dto.*;
+import com.nsu.habbitrabbit.domain.Room;
+import com.nsu.habbitrabbit.repo.PlayerRepository;
 import com.nsu.habbitrabbit.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,9 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+
 @RestController
 public class PlayerController {
     private PlayerService playerService;
+    private PlayerRepository playerRepository;
 
     @Autowired
     public PlayerController(PlayerService playerService) {
@@ -45,5 +50,10 @@ public class PlayerController {
     @PostMapping("/players/removeRabbits")
     public GetRabbitsOutput removeRabbits(@RequestBody RemoveRabbitsInput input) {
         return playerService.removeCountOfRabbits(input);
+    }
+
+    @GetMapping("/players/get_user_room")
+    public ArrayList<Room> getPlayerRooms(@RequestBody GetPlayerAllRoomsInput input){
+        return playerService.getAllPlayerRooms(input);
     }
 }

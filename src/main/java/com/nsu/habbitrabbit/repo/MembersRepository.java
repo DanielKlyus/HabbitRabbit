@@ -9,4 +9,6 @@ import java.util.ArrayList;
 
 public interface MembersRepository extends JpaRepository<Members, MembersId> {
     ArrayList<Members> getAllByRoomId(Long id);
+
+    ArrayList<Members> getAllByPlayerId(Long id);
 }
