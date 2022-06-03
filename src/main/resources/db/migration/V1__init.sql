@@ -7,7 +7,8 @@ CREATE TABLE players
     "is_active"       boolean            NOT NULL,
     "created_at"      TIMESTAMP          NOT NULL DEFAULT NOW(),
     "updated_at"      TIMESTAMP          NOT NULL DEFAULT NOW(),
-    "count_of_rabbits" INTEGER           DEFAULT 0
+    "count_of_rabbits" INTEGER           DEFAULT 0,
+    "is_admin" boolean NOT NULL
 );
 
 CREATE TABLE rooms

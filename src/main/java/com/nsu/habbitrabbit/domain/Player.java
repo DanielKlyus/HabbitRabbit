@@ -17,11 +17,12 @@ public class Player {
     private Date updatedAt;
     private Date createdAt;
     private Integer countOfRabbits;
+    private boolean isAdmin;
 
     public Player() {
     }
 
-    public Player(final Long id, final String name, final String email, final String password, final boolean isActive, final Date updatedAt, final Date createdAt) {
+    public Player(final Long id, final String name, final String email, final String password, final boolean isActive, final Date updatedAt, final Date createdAt, final boolean isAdmin) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -30,6 +31,15 @@ public class Player {
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
         this.countOfRabbits = 0;
+        this.isAdmin = isAdmin;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     public String getName() {

@@ -47,7 +47,7 @@ public class PlayerService {
                 return new UserAuthOutput(
                         player.getName(),
                         player.getEmail(),
-                        jwtProvider.generateToken(player.getEmail(),
+                        jwtProvider.generateToken(player,
                                 15,
                                 JwtProvider.jwtSecret)
                 );
@@ -71,18 +71,19 @@ public class PlayerService {
         current.setCreatedAt(new Date());
         current.setUpdatedAt(new Date());
         current.setCountOfRabbits(0);
+        current.setAdmin(input.getIsAdmin());
 
         current = playerRepository.save(current);
 
         return CreatePlayerMapper.mapPlayerToDTO(current, jwtProvider.generateToken(
-                current.getEmail(),
+                current,
                 15,
                 JwtProvider.jwtSecret));
     }
 
     public ChangePlayerOutput changePlayer(ChangePlayerInput input) {
         Credentials cred = (Credentials) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        var current = playerRepository.findPlayerByEmail(cred.getUsername());
+        var current = playerRepository.findPlayerByEmail(cred.getEmail());
 
         if (current == null) {
             return new ChangePlayerOutput("Пользователя с таким email не существует");

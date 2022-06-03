@@ -23,7 +23,7 @@ public class PlayerController {
         this.playerService = playerService;
     }
 
-    @PostMapping("players/register")
+    @PostMapping("/players/register")
     public CreatePlayerOutput createPlayer(@RequestBody CreatePlayerInput input) {
         return playerService.createPlayer(input);
     }

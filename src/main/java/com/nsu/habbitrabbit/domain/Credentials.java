@@ -6,49 +6,40 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Set;
 
-public class Credentials implements UserDetails {
+public class Credentials {
     private String email;
-    private String password;
-    private Set<Role> roles;
+    private Integer id;
+    private Boolean isAdmin;
 
-    public Credentials(String email, String password, Set<Role> role) {
+    public Credentials() {}
+
+    public Credentials(String email, Integer id, Boolean isAdmin) {
         this.email = email;
-        this.password = password;
-        this.roles = role;
+        this.id = id;
+        this.isAdmin = isAdmin;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
+    public String getEmail() {
         return email;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
+    public Integer getId() {
+        return id;
     }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    @Override
-    public boolean isEnabled() {
-        return true;
+    public Boolean getAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        isAdmin = admin;
     }
 }
