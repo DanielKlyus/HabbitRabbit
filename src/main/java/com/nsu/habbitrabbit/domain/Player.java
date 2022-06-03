@@ -1,10 +1,7 @@
 package com.nsu.habbitrabbit.domain;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -19,6 +16,7 @@ public class Player {
     private boolean isActive;
     private Date updatedAt;
     private Date createdAt;
+    private Integer countOfRabbits;
 
     public Player() {
     }
@@ -31,6 +29,7 @@ public class Player {
         this.isActive = isActive;
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
+        this.countOfRabbits = 0;
     }
 
     public String getName() {
@@ -87,5 +86,13 @@ public class Player {
 
     public Long getId() {
         return id;
+    }
+
+    public Integer getCountOfRabbits() {
+        return countOfRabbits;
+    }
+
+    public void setCountOfRabbits(Integer countOfRabbits) {
+        this.countOfRabbits = countOfRabbits;
     }
 }

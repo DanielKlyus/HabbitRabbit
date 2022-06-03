@@ -6,6 +6,7 @@ import com.nsu.habbitrabbit.provider.JwtProvider;
 import com.nsu.habbitrabbit.repo.PlayerRepository;
 import com.nsu.habbitrabbit.service.mapper.player.ChangePlayerMapper;
 import com.nsu.habbitrabbit.service.mapper.player.CreatePlayerMapper;
+import com.nsu.habbitrabbit.service.mapper.player.GetCountOfRabbitsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -59,6 +60,7 @@ public class PlayerService {
         current.setActive(true);
         current.setCreatedAt(new Date());
         current.setUpdatedAt(new Date());
+        current.setCountOfRabbits(0);
 
         current = playerRepository.save(current);
 
@@ -84,5 +86,55 @@ public class PlayerService {
 
         return ChangePlayerMapper.mapPlayerToDTO(current);
     }
+
+    public GetRabbitsOutput getCountOfRabbits(GetRabbitsInput input) {
+        Long playerId = input.getPlayerID();
+        Player current = playerRepository.findPlayerById(playerId);
+
+        return GetCountOfRabbitsMapper.mapRabbitsToDTO(current.getCountOfRabbits());
+    }
+
+    public GetRabbitsOutput addCountOfRabbits(AddRabbitsInput input) {
+        Player current = addRabbits(input.getPlayerID(), input.getRabbitsToAdd());
+        current = playerRepository.save(current);
+        return GetCountOfRabbitsMapper.mapRabbitsToDTO(current.getCountOfRabbits());
+    }
+
+    public Player addRabbits(Long playerId, int rabbitsToAdd) {
+        Player current = playerRepository.findPlayerById(playerId);
+
+        Integer currentCountOfRabbits = current.getCountOfRabbits();
+        currentCountOfRabbits = currentCountOfRabbits + rabbitsToAdd;
+        current.setCountOfRabbits(currentCountOfRabbits);
+
+        Date nowDate = new Date();
+        current.setUpdatedAt(nowDate);
+        return current;
+    }
+
+    public GetRabbitsOutput removeCountOfRabbits(RemoveRabbitsInput input) {
+        Player current = removeRabbits(input.getPlayerID(), input.getRabbitsToRemove());
+        current = playerRepository.save(current);
+
+        return GetCountOfRabbitsMapper.mapRabbitsToDTO(current.getCountOfRabbits());
+    }
+
+    public Player removeRabbits(Long playerId, int rabbitsToRemove) {
+        Player current = playerRepository.findPlayerById(playerId);
+
+        Integer currentCountOfRabbits = current.getCountOfRabbits();
+        currentCountOfRabbits = currentCountOfRabbits - rabbitsToRemove;
+        if (currentCountOfRabbits < 0) {
+            currentCountOfRabbits = 0;
+        }
+        current.setCountOfRabbits(currentCountOfRabbits);
+
+        Date nowDate = new Date();
+        current.setUpdatedAt(nowDate);
+
+        return current;
+    }
+
+
 }
 
