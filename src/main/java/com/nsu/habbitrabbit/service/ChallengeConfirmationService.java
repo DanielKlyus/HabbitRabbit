@@ -22,7 +22,7 @@ public class ChallengeConfirmationService {
     }
 
     public ChallengeConfirmationOutput challengeConfirmationOutput(ChallengeConfirmationInput input) {
-        Visits current = challengeConfirmationRepository.findVisitsByPlayer_Id(input.getPlayerId());
+        Visits current = challengeConfirmationRepository.findVisitsByPlayerId(input.getPlayerId());
 
         var activities = current.getActivities();
 

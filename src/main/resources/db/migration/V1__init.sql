@@ -37,7 +37,7 @@ CREATE TABLE members
 CREATE TABLE visits
 (
     "player_id" INTEGER PRIMARY KEY NOT NULL,
-    "room_activity" json,
+    "activities" TEXT,
 
     CONSTRAINT fk_visits_player FOREIGN KEY ("player_id") REFERENCES players ("id")
 );
