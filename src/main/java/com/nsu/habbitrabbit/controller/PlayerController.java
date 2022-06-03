@@ -3,6 +3,7 @@ package com.nsu.habbitrabbit.controller;
 import com.nsu.habbitrabbit.controller.dto.*;
 import com.nsu.habbitrabbit.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,4 +32,18 @@ public class PlayerController {
         return playerService.changePlayer(input);
     }
 
+    @GetMapping("/players/getRabbits")
+    public GetRabbitsOutput getRabbits(@RequestBody GetRabbitsInput input) {
+        return playerService.getCountOfRabbits(input);
+    }
+
+    @PostMapping("/players/addRabbits")
+    public GetRabbitsOutput addRabbits(@RequestBody AddRabbitsInput input) {
+        return playerService.addCountOfRabbits(input);
+    }
+
+    @PostMapping("/players/removeRabbits")
+    public GetRabbitsOutput removeRabbits(@RequestBody RemoveRabbitsInput input) {
+        return playerService.removeCountOfRabbits(input);
+    }
 }
