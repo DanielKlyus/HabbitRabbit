@@ -1,6 +1,7 @@
 package com.nsu.habbitrabbit.controller;
 
 import com.nsu.habbitrabbit.controller.dto.*;
+import com.nsu.habbitrabbit.domain.Player;
 import com.nsu.habbitrabbit.domain.Room;
 import com.nsu.habbitrabbit.repo.PlayerRepository;
 import com.nsu.habbitrabbit.service.PlayerService;
@@ -55,5 +56,9 @@ public class PlayerController {
     @GetMapping("/players/get_user_room")
     public ArrayList<Room> getPlayerRooms(@RequestBody GetPlayerAllRoomsInput input){
         return playerService.getAllPlayerRooms(input);
+    }
+    @GetMapping("/players/getAllPlayers")
+    public ArrayList<Player> getAllPlayers(){
+        return playerService.getAllPlayers();
     }
 }

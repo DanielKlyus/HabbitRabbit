@@ -38,7 +38,7 @@ public class JwtFilter extends GenericFilterBean {
 
             var roles = new HashSet<Role>();
             if (isAdmin((HttpServletRequest) servletRequest)) {
-                roles.add(new Role(Role.ROLE_ADMIN));
+                roles.add(new Role(Role.ROLE_SYS_ADMIN));
             }
 
             roles.add(new Role(Role.ROLE_USER));

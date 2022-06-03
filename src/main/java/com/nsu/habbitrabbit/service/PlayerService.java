@@ -155,6 +155,8 @@ public class PlayerService {
         return roomsArrayList;
     }
 
-
+    public ArrayList<Player> getAllPlayers(){
+     return playerRepository.findAll();
+    }
 }
 
