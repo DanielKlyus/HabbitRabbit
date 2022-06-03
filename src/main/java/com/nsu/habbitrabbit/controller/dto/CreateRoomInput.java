@@ -1,5 +1,6 @@
 package com.nsu.habbitrabbit.controller.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class CreateRoomInput {
@@ -9,6 +10,15 @@ public class CreateRoomInput {
     private Date finishedAt;
     private Integer rabbitsForFailure;
     private Integer rabbitsForSuccess;
+    ArrayList<String> emails;
+
+    public ArrayList<String> getEmails() {
+        return emails;
+    }
+
+    public void setEmails(ArrayList<String> emails) {
+        this.emails = emails;
+    }
 
     public String getName() {
         return name;

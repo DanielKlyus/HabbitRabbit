@@ -62,8 +62,22 @@ public class RoomService {
         current.setFinishedAt(input.getFinishedAt());
         current.setRabbitsForFailure(input.getRabbitsForFailure());
         current.setRabbitsForSuccess(input.getRabbitsForSuccess());
-
         current = roomRepository.save(current);
+
+
+        var emails = input.getEmails();
+        for (var email : emails) {
+            var m = new Members();
+            m.setRoomId(current.getId());
+            var player = playerRepository.findPlayerByEmail(email);
+
+            if (player != null) {
+                m.setPlayerId(player.getId());
+            }
+
+            membersRepository.save(m);
+        }
+
         Visits visits = new Visits();
         visits.setId(input.getCreatorId());
         var list = new ArrayList<RoomActivity>();
