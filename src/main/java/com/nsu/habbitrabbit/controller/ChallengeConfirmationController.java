@@ -2,6 +2,8 @@ package com.nsu.habbitrabbit.controller;
 
 import com.nsu.habbitrabbit.controller.dto.ChallengeConfirmationInput;
 import com.nsu.habbitrabbit.controller.dto.ChallengeConfirmationOutput;
+import com.nsu.habbitrabbit.controller.dto.GetRoomInput;
+import com.nsu.habbitrabbit.controller.dto.GetRoomOutput;
 import com.nsu.habbitrabbit.service.ChallengeConfirmationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

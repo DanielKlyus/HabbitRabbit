@@ -5,20 +5,24 @@ import com.nsu.habbitrabbit.controller.dto.ChallengeConfirmationOutput;
 import com.nsu.habbitrabbit.domain.visits.RoomActivity;
 import com.nsu.habbitrabbit.domain.visits.Visits;
 import com.nsu.habbitrabbit.repo.ChallengeConfirmationRepository;
+import com.nsu.habbitrabbit.repo.PlayerRepository;
+import com.nsu.habbitrabbit.repo.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.function.Consumer;
 
 @Service
 public class ChallengeConfirmationService {
     ChallengeConfirmationRepository challengeConfirmationRepository;
+    RoomRepository roomRepository;
+    PlayerRepository playerRepository;
 
     @Autowired
-    public ChallengeConfirmationService(ChallengeConfirmationRepository challengeConfirmationRepository) {
+    public ChallengeConfirmationService(ChallengeConfirmationRepository challengeConfirmationRepository, RoomRepository roomRepository, PlayerRepository playerRepository) {
         this.challengeConfirmationRepository = challengeConfirmationRepository;
+        this.roomRepository = roomRepository;
+        this.playerRepository = playerRepository;
     }
 
     public ChallengeConfirmationOutput challengeConfirmationOutput(ChallengeConfirmationInput input) {
