@@ -77,5 +77,5 @@ public class CreateRoomInput {
         this.rabbitsForSuccess = rabbitsForSuccess;
     }
 
-    CreateRoomInput() {}
+    public CreateRoomInput() {}
 }

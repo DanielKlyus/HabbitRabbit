@@ -9,4 +9,5 @@ import java.util.UUID;
 public interface RoomRepository extends JpaRepository<Room, Long>{
     public Room findRoomByName(String name);
     public Room findRoomById(Long id);
+    ArrayList<Room> findAllByIdIn(ArrayList<Long> ids);
 }

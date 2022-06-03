@@ -14,11 +14,11 @@ public class GetRoomOutput {
 
     private Boolean isFinished;
 
-    public Boolean getFinished() {
+    public Boolean getIsFinished() {
         return isFinished;
     }
 
-    public void setFinished(Boolean finished) {
+    public void setIsFinished(Boolean finished) {
         isFinished = finished;
     }
 
@@ -33,6 +33,8 @@ public class GetRoomOutput {
         this.rabbitsForSuccess = rabbitsForSuccess;
         this.isFinished = isFinished;
     }
+
+
 
     public GetRoomOutput() {}
 

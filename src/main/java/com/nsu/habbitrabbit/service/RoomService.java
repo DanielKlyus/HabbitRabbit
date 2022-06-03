@@ -118,6 +118,20 @@ public class RoomService {
         }
         return GetRoomMapper.mapRoomToDTO(room, isFinished);
     }
+
+    public ArrayList<Room> getRooms(Long playerId) {
+        var roomsIds = membersRepository.getAllByPlayerId(playerId);
+        if (roomsIds == null) {
+            return null;
+        }
+
+        var ids = new ArrayList<Long>();
+        for (var item : roomsIds) {
+            ids.add(item.getRoomId());
+        }
+
+        return roomRepository.findAllByIdIn(ids);
+    }
 }
 
 
