@@ -36,12 +36,18 @@ public class RoomController {
     }
 
     @PostMapping("rooms/get_rooms/{playerId}")
-    public ArrayList<Room> getRoom(@PathVariable Long playerId) {
-        return roomService.getRooms(playerId);
+    public ArrayList<GetRoomOutput> getRoom(@PathVariable Long playerId) {
+        var res = new ArrayList<GetRoomOutput>();
+        var a = roomService.getRooms(playerId);
+        for(var item : a) {
+            res.add(roomService.getRoom(new GetRoomInput(item.getId())));
+        }
+
+        return res;
     }
 
     @PostMapping("rooms/delete")
-    @PreAuthorize("hasRole('ADMIN')")
+   // @PreAuthorize("hasRole('ADMIN')")
     public DeleteRoomOutput deleteRoom(@RequestBody GetRoomInput input) {
         return roomService.deleteRoom(input);
     }

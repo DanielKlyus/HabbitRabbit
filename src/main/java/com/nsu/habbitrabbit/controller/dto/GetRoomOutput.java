@@ -11,9 +11,8 @@ public class GetRoomOutput {
     private Date finishedAt;
     private Integer rabbitsForFailure;
     private Integer rabbitsForSuccess;
-
-    private Boolean isFinished;
-    private Boolean isClicked;
+    public Boolean isFinished;
+    public Boolean isClicked;
 
     public Boolean getIsFinished() {
         return isFinished;
@@ -21,6 +20,22 @@ public class GetRoomOutput {
 
     public void setIsFinished(Boolean finished) {
         isFinished = finished;
+    }
+
+    public Boolean getFinished() {
+        return isFinished;
+    }
+
+    public void setFinished(Boolean finished) {
+        isFinished = finished;
+    }
+
+    public Boolean getClicked() {
+        return isClicked;
+    }
+
+    public void setClicked(Boolean clicked) {
+        isClicked = clicked;
     }
 
     public GetRoomOutput(String name, String description, Long creatorId, Date createdAt, Date updatedAt, Date finishedAt, Integer rabbitsForFailure, Integer rabbitsForSuccess, Boolean isFinished, Boolean isClicked) {
