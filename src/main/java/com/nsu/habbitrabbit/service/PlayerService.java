@@ -45,6 +45,7 @@ public class PlayerService {
         if (player != null) {
             if (passwordEncoder.matches(input.getPassword(), player.getPassword())) {
                 return new UserAuthOutput(
+                        player.getId(),
                         player.getName(),
                         player.getEmail(),
                         jwtProvider.generateToken(player,
@@ -158,6 +159,10 @@ public class PlayerService {
 
     public ArrayList<Player> getAllPlayers(){
      return playerRepository.findAll();
+    }
+
+    public void deletePlayer(DeletePlayerInput input) {
+        playerRepository.deletePlayerById(input.getPlayerId());
     }
 }
 

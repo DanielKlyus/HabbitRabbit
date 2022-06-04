@@ -38,7 +38,7 @@ public class PlayerController {
         return playerService.changePlayer(input);
     }
 
-    @GetMapping("/players/getRabbits")
+    @PostMapping("/players/getRabbits")
     public GetRabbitsOutput getRabbits(@RequestBody GetRabbitsInput input) {
         return playerService.getCountOfRabbits(input);
     }
@@ -60,5 +60,11 @@ public class PlayerController {
     @GetMapping("/players/getAllPlayers")
     public ArrayList<Player> getAllPlayers(){
         return playerService.getAllPlayers();
+    }
+
+    @PostMapping("/players/delete")
+    public DeletePlayerOutput deleteplayer(@RequestBody DeletePlayerInput input) {
+        playerService.deletePlayer(input);
+        return new DeletePlayerOutput(true, null);
     }
 }
