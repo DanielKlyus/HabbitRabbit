@@ -3,6 +3,7 @@ package com.nsu.habbitrabbit.controller.dto;
 import java.util.Date;
 
 public class GetRoomOutput {
+    private Long id;
     private String name;
     private String description;
     private Long creatorId;
@@ -13,6 +14,14 @@ public class GetRoomOutput {
     private Integer rabbitsForSuccess;
     public Boolean isFinished;
     public Boolean isClicked;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Boolean getIsFinished() {
         return isFinished;
@@ -38,7 +47,8 @@ public class GetRoomOutput {
         isClicked = clicked;
     }
 
-    public GetRoomOutput(String name, String description, Long creatorId, Date createdAt, Date updatedAt, Date finishedAt, Integer rabbitsForFailure, Integer rabbitsForSuccess, Boolean isFinished, Boolean isClicked) {
+    public GetRoomOutput(Long id, String name, String description, Long creatorId, Date createdAt, Date updatedAt, Date finishedAt, Integer rabbitsForFailure, Integer rabbitsForSuccess, Boolean isFinished, Boolean isClicked) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.creatorId = creatorId;
