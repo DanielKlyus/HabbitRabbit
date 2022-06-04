@@ -5,6 +5,7 @@ import com.nsu.habbitrabbit.controller.dto.CreateRoomOutput;
 import com.nsu.habbitrabbit.controller.dto.GetRoomInput;
 import com.nsu.habbitrabbit.controller.dto.GetRoomOutput;
 import com.nsu.habbitrabbit.domain.Room;
+import com.nsu.habbitrabbit.controller.dto.*;
 import com.nsu.habbitrabbit.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -37,5 +38,11 @@ public class RoomController {
     @PostMapping("rooms/get_rooms/{playerId}")
     public ArrayList<Room> getRoom(@PathVariable Long playerId) {
         return roomService.getRooms(playerId);
+    }
+
+    @PostMapping("rooms/delete")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DeleteRoomOutput deleteRoom(@RequestBody GetRoomInput input) {
+        return roomService.deleteRoom(input);
     }
 }

@@ -18,8 +18,6 @@ public class Visits {
     @Id
     @JoinColumn(name = "playerId")
     private Long playerId;
-    //    @Type(type = "JsonObject")
-//    ArrayList<RoomActivity> activities;
     String activities;
 
     public Visits() {

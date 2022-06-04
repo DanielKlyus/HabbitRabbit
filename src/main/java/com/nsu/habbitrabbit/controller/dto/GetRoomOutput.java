@@ -13,6 +13,7 @@ public class GetRoomOutput {
     private Integer rabbitsForSuccess;
 
     private Boolean isFinished;
+    private Boolean isClicked;
 
     public Boolean getIsFinished() {
         return isFinished;
@@ -22,7 +23,7 @@ public class GetRoomOutput {
         isFinished = finished;
     }
 
-    public GetRoomOutput(String name, String description, Long creatorId, Date createdAt, Date updatedAt, Date finishedAt, Integer rabbitsForFailure, Integer rabbitsForSuccess, Boolean isFinished) {
+    public GetRoomOutput(String name, String description, Long creatorId, Date createdAt, Date updatedAt, Date finishedAt, Integer rabbitsForFailure, Integer rabbitsForSuccess, Boolean isFinished, Boolean isClicked) {
         this.name = name;
         this.description = description;
         this.creatorId = creatorId;
@@ -32,6 +33,7 @@ public class GetRoomOutput {
         this.rabbitsForFailure = rabbitsForFailure;
         this.rabbitsForSuccess = rabbitsForSuccess;
         this.isFinished = isFinished;
+        this.isClicked = isClicked;
     }
 
 

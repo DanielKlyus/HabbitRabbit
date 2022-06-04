@@ -1,9 +1,7 @@
 package com.nsu.habbitrabbit.service;
 
-import com.nsu.habbitrabbit.controller.dto.CreateRoomInput;
-import com.nsu.habbitrabbit.controller.dto.CreateRoomOutput;
-import com.nsu.habbitrabbit.controller.dto.GetRoomInput;
-import com.nsu.habbitrabbit.controller.dto.GetRoomOutput;
+import com.nsu.habbitrabbit.controller.dto.*;
+import com.nsu.habbitrabbit.domain.Credentials;
 import com.nsu.habbitrabbit.domain.Members;
 import com.nsu.habbitrabbit.domain.Player;
 import com.nsu.habbitrabbit.domain.Room;
@@ -17,6 +15,7 @@ import com.nsu.habbitrabbit.repo.RoomRepository;
 import com.nsu.habbitrabbit.service.mapper.room.CreateRoomMapper;
 import com.nsu.habbitrabbit.service.mapper.room.GetRoomMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.temporal.ChronoUnit;
@@ -70,7 +69,7 @@ public class RoomService {
             var m = new Members();
             m.setRoomId(current.getId());
             var player = playerRepository.findPlayerByEmail(email);
-
+            createYesterdayVisit(player.getId(), current.getId());
             if (player != null) {
                 m.setPlayerId(player.getId());
             }
@@ -78,24 +77,29 @@ public class RoomService {
             membersRepository.save(m);
         }
 
+        createYesterdayVisit(input.getCreatorId(), current.getId());
+        return CreateRoomMapper.mapRoomToDTO(current);
+    }
+
+    private void createYesterdayVisit(Long playerId, Long roomId) {
         Visits visits = new Visits();
-        visits.setId(input.getCreatorId());
+        visits.setId(playerId);
         var list = new ArrayList<RoomActivity>();
 
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -1);
         var yesterday = cal.getTime();
 
-        list.add(new RoomActivity(current.getId(), 0, yesterday, true));
+        list.add(new RoomActivity(roomId, 0, yesterday, true));
         visits.setActivities(list);
         challengeConfirmationRepository.save(visits);
-        membersRepository.save(new Members(current.getId(), input.getCreatorId()));
-        return CreateRoomMapper.mapRoomToDTO(current);
+        membersRepository.save(new Members(roomId, playerId));
     }
 
     public GetRoomOutput getRoom(GetRoomInput input) {
         var room = roomRepository.findRoomById(input.getRoomId());
         var isFinished = room.getFinishedAt().before(new Date());
+        var isClicked = false;
         if (isFinished) {
             var members = membersRepository.getAllByRoomId(room.getId());
             var playersIds = members.stream().map(Members::getPlayerId).collect(Collectors.toList());
@@ -116,7 +120,48 @@ public class RoomService {
                 }
             }
         }
-        return GetRoomMapper.mapRoomToDTO(room, isFinished);
+        Credentials cred = (Credentials) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        var currentPlayer = playerRepository.findPlayerByEmail(cred.getEmail());
+        var members = membersRepository.getAllByRoomId(room.getId());
+        var playersIds = members.stream().map(Members::getPlayerId).collect(Collectors.toList());
+        for (Long playerId : playersIds) {
+            if(Objects.equals(playerId, currentPlayer.getId())) {
+                var visits = challengeConfirmationRepository.findVisitsByPlayerId(playerId);
+                var activities = visits.getActivities();
+                for(RoomActivity activity : activities) {
+                    if(Objects.equals(activity.getRoomId(), room.getId())) {
+                        isClicked = activity.getLastVisitAt().getDay() == new Date().getDay();
+                    }
+                }
+
+            }
+        }
+        return GetRoomMapper.mapRoomToDTO(room, isFinished, isClicked);
+    }
+
+    public DeleteRoomOutput deleteRoom(GetRoomInput input) {
+        var roomMembers = membersRepository.getAllByRoomId(input.getRoomId());
+        membersRepository.deleteAllByRoomId(input.getRoomId());
+        for(Members member : roomMembers) {
+            var visits = challengeConfirmationRepository.findVisitsByPlayerId(member.getPlayerId());
+            if(visits != null) {
+                var currentActivities = visits.getActivities();
+                int i = 0;
+                for (RoomActivity activity : currentActivities) {
+                    if (Objects.equals(activity.getRoomId(), input.getRoomId())) {
+                        break;
+                    }
+                    i++;
+                }
+                currentActivities.remove(i);
+                var newVisits = new Visits();
+                newVisits.setActivities(currentActivities);
+                newVisits.setId(visits.getId());
+                challengeConfirmationRepository.save(newVisits);
+            }
+        }
+        roomRepository.deleteRoomById(input.getRoomId());
+        return new DeleteRoomOutput(true, null);
     }
 
     public ArrayList<Room> getRooms(Long playerId) {

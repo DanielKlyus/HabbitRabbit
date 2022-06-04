@@ -4,7 +4,7 @@ import com.nsu.habbitrabbit.controller.dto.GetRoomOutput;
 import com.nsu.habbitrabbit.domain.Room;
 
 public class GetRoomMapper {
-    public static GetRoomOutput mapRoomToDTO(Room room, boolean isFinished) {
+    public static GetRoomOutput mapRoomToDTO(Room room, Boolean isFinished, Boolean isClicked) {
         return new GetRoomOutput(
                 room.getName(),
                 room.getDescription(),
@@ -14,7 +14,8 @@ public class GetRoomMapper {
                 room.getFinishedAt(),
                 room.getRabbitsForFailure(),
                 room.getRabbitsForSuccess(),
-                isFinished
+                isFinished,
+                isClicked
         );
     }
 }
